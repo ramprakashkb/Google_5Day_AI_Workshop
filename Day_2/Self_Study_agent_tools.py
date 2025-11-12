@@ -6,12 +6,9 @@ from google.adk.agents import LlmAgent
 from google.adk.tools import AgentTool, google_search
 from google.adk.runners import InMemoryRunner
 
-#Enable API Key from the environment file
-PROJECT_ROOT_ENV = Path(__file__).resolve().parents[1] / ".env"
-DAY1_SAMPLE_ENV = Path(__file__).resolve().parents[1] / "Day_1" / "sample-agent" / ".env"
-for _env in (PROJECT_ROOT_ENV, DAY1_SAMPLE_ENV):
-    if _env.exists():
-        load_dotenv(_env, override=True)
+# Load .env from project root before client init
+ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ENV_PATH)
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
 if not GOOGLE_API_KEY:

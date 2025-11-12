@@ -12,11 +12,8 @@ from google.adk.models.google_llm import Gemini
 
 
 # Load .env from project root and Day_1/sample-agent if present, before client init
-PROJECT_ROOT_ENV = Path(__file__).resolve().parents[1] / ".env"
-DAY1_SAMPLE_ENV = Path(__file__).resolve().parents[1] / "Day_1" / "sample-agent" / ".env"
-for _env in (PROJECT_ROOT_ENV, DAY1_SAMPLE_ENV):
-    if _env.exists():
-        load_dotenv(_env, override=True)
+ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
+load_dotenv(ENV_PATH)
 
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
 if not GOOGLE_API_KEY:
