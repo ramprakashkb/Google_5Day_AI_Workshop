@@ -19,6 +19,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
 if not GOOGLE_API_KEY:
     raise ValueError("Missing GOOGLE_API_KEY/API_KEY. Set it in .env or environment before running.")
 
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+
 retry_config=types.HttpRetryOptions(
     attempts=5,  # Maximum retry attempts
     exp_base=7,  # Delay multiplier

@@ -19,6 +19,7 @@ if not GOOGLE_API_KEY:
     raise ValueError("Missing GOOGLE_API_KEY/API_KEY. Set it in .env or environment before running.")
 
 # Ensure Vertex AI is disabled unless explicitly enabled
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
 os.environ.setdefault("GOOGLE_GENAI_USE_VERTEXAI", "FALSE")
 
 # Create client with api_key so credentials are recognized

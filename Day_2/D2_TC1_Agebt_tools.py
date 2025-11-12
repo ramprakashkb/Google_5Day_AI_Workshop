@@ -17,6 +17,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
 if not GOOGLE_API_KEY:
     raise ValueError("Missing GOOGLE_API_KEY/API_KEY. Set it in .env or environment before running.")
 
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+
 """
 
 When working with LLMs, you may encounter transient errors like rate limits or temporary service unavailability. 

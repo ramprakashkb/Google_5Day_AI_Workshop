@@ -15,9 +15,20 @@ from google.adk.models.google_llm import Gemini
 ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(ENV_PATH)
 
+
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("API_KEY")
 if not GOOGLE_API_KEY:
     raise ValueError("Missing GOOGLE_API_KEY/API_KEY. Set it in .env or environment before running.")
+
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+
+retry_config=types.HttpRetryOptions(
+    attempts=5,  # Maximum retry attempts
+    exp_base=7,  # Delay multiplier
+    initial_delay=1,
+    http_status_codes=[429, 500, 503, 504], # Retry on these HTTP errors
+)
+
 
 """
 3.1 Example: Blog Post Creation with Sequential Agents
@@ -28,14 +39,6 @@ Writer Agent - Writes a blog post
 Editor Agent - Edits a blog post draft for clarity and structure
 
 """
-
-retry_config=types.HttpRetryOptions(
-    attempts=5,  # Maximum retry attempts
-    exp_base=7,  # Delay multiplier
-    initial_delay=1,
-    http_status_codes=[429, 500, 503, 504], # Retry on these HTTP errors
-)
-
 
 # Outline Agent: Creates the initial blog post outline.
 outline_agent = Agent(
